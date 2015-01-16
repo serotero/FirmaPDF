@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/cod/!svn/ver/715/trunk/Dependencias/Java/Cod-Signer/src/bitwalker/useragentutils
+END
+Application.java
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/cod/!svn/ver/531/trunk/Dependencias/Java/Cod-Signer/src/bitwalker/useragentutils/Application.java
+END
+Browser.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/cod/!svn/ver/531/trunk/Dependencias/Java/Cod-Signer/src/bitwalker/useragentutils/Browser.java
+END
+ApplicationType.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/cod/!svn/ver/531/trunk/Dependencias/Java/Cod-Signer/src/bitwalker/useragentutils/ApplicationType.java
+END
+BrowserType.java
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/cod/!svn/ver/531/trunk/Dependencias/Java/Cod-Signer/src/bitwalker/useragentutils/BrowserType.java
+END
+Manufacturer.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/cod/!svn/ver/531/trunk/Dependencias/Java/Cod-Signer/src/bitwalker/useragentutils/Manufacturer.java
+END
+OperatingSystem.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/cod/!svn/ver/531/trunk/Dependencias/Java/Cod-Signer/src/bitwalker/useragentutils/OperatingSystem.java
+END
+UserAgent.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/cod/!svn/ver/715/trunk/Dependencias/Java/Cod-Signer/src/bitwalker/useragentutils/UserAgent.java
+END

@@ -1,0 +1,39 @@
+package ar.com.qamwan.crypto.keystore;
+
+import java.io.IOException;
+import java.security.Key;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.Provider;
+import java.security.cert.Certificate;
+import java.security.cert.CertificateException;
+import java.util.Enumeration;
+import java.util.List;
+
+public interface IKeyStore
+{
+    public void load(char[] pin) throws KeyStoreException, NoSuchAlgorithmException, IOException,
+            CertificateException, Exception;
+
+    public Enumeration<String> aliases() throws KeyStoreException, Exception;
+
+    public Certificate getCertificate(String alias) throws KeyStoreException, Exception;
+    
+    public Certificate getCertificate(String serialNumber,String issuerDN) throws KeyStoreException, Exception;
+
+    public  List<Certificate> getUserCertificates() throws KeyStoreException, Exception;
+
+    public Key getKey(String alias,	char[] pin) throws KeyStoreException, Exception;
+
+    public String getAliasFromCertificate(Certificate cer) throws Exception;
+
+    public Provider getProvider();
+    
+    public void setProvider(Provider provider) throws Exception;
+
+    public SupportedKeystore getName();
+
+    public String getTokenName();
+
+    public void cleanUp();
+}

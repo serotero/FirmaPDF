@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/cod/!svn/ver/714/trunk/Dependencias/Java/Cod-Signer/src/ar/com/cajval/sba/crypto/util
+END
+RegQuery.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/cod/!svn/ver/526/trunk/Dependencias/Java/Cod-Signer/src/ar/com/cajval/sba/crypto/util/RegQuery.java
+END
+Base64.java
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/cod/!svn/ver/714/trunk/Dependencias/Java/Cod-Signer/src/ar/com/cajval/sba/crypto/util/Base64.java
+END
+CertHelper.java
+K 25
+svn:wc:ra_dav:version-url
+V 106
+/svn/cod/!svn/ver/526/trunk/Dependencias/Java/Cod-Signer/src/ar/com/cajval/sba/crypto/util/CertHelper.java
+END

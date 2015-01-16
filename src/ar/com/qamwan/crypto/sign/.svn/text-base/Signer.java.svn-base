@@ -1,0 +1,11 @@
+package ar.com.cajval.sba.crypto.sign;
+
+import ar.com.cajval.sba.crypto.sign.exception.SignerException;
+
+public interface Signer {
+	
+	public static final String SIGNATURE_NOT_DONE = "firma no efectuada.";
+	
+	public String sign(String method, String toSign, SignContext signContext) throws SignerException;
+	
+}

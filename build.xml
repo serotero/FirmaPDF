@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project basedir="." default="build" name="pdfSigner">
+    <property environment="env"/>
+	<property name="lib" value="${basedir}/lib"/>
+	<property name="resources" value="${basedir}/resources"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+	<property name="dist" value="${basedir}/dist"/>
+        <property name="keystore" value="${resources}/certificates/codesigner.p12"/>
+        <property name="storetype" value="pkcs12"/>
+        <property name="storepass" value="vacaloca"/>
+        <property name="keypass" value="password"/>
+	<property name="jarName" value="pdfSigner.jar"/>
+    <property name="target" value="1.5"/>
+    <property name="source" value="1.5"/>
+	
+    <path id="PDFSigner.classpath">
+        <pathelement location="bin"/>
+        <pathelement location="${lib}/bcmail-jdk16-145.jar"/>
+        <pathelement location="${lib}/bcprov-jdk16-145.jar"/>
+        <pathelement location="${lib}/commons-logging.jar"/>
+        <pathelement location="${lib}/commons-io-2.4.jar"/>    	
+        <pathelement location="${lib}/log4j.jar"/>
+        <pathelement location="${lib}/log4j-core.jar"/>    	
+        <pathelement location="${lib}/java-plugin-1.6.0.23.jar"/>
+        <pathelement location="${lib}/pdfbox.jar"/>
+        <pathelement location="${lib}/xmlsec.jar"/>
+        <pathelement location="${lib}/sunpkcs11.jar"/>
+        
+    </path>
+	
+    <target name="init">
+        <mkdir dir="bin"/>
+        <copy includeemptydirs="false" todir="bin">
+            <fileset dir="src" excludes="**/*.launch, **/*.g, **/*.testsuite, **/*.deploy, **/*.location, **/*.execution, **/*.datapool, **/*.artifact, **/*.html, **/*.svg, **/*.java"/>
+        </copy>
+    </target>
+    <target name="clean">
+        <delete dir="bin"/>
+    	<delete dir="dist"/>
+    </target>
+    <target depends="clean" name="cleanall"/>
+    <target depends="build-project" name="build"/>
+
+    <target depends="clean,init" name="build-project">
+	    <echo message="${ant.project.name}: ${ant.file}"/>
+	    <javac debug="true" debuglevel="${debuglevel}" destdir="bin" source="${source}" target="${target}">
+	        <src path="src"/>
+	        <classpath refid="PDFSigner.classpath"/>
+          <compilerarg value="-Xlint"/>
+	    </javac>
+	    <mkdir dir="${dist}"/>
+		<jar destfile="${dist}/${jarName}" excludes="**/Test.class">
+		    <fileset dir="${basedir}/bin"/>
+		  	<fileset file="${resources}/java.policy.applet" />
+			<fileset file="${resources}/commons-logging.properties" />
+			<fileset file="${resources}/log4j.properties" />			
+		</jar>
+
+    	<copy tofile="lib/${jarName}" file="${dist}/${jarName}"/>
+    	<copy tofile="${dist}/log4j.jar" file="${lib}/log4j.jar"/>
+    	<copy tofile="${dist}/log4j-core.jar" file="${lib}/log4j-core.jar"/>    	
+    	<copy tofile="${dist}/commons-logging.jar" file="${lib}/commons-logging.jar"/>
+    	<copy tofile="${dist}/commons-io-2.4.jar" file="${lib}/commons-io-2.4.jar"/>    	
+    	<copy tofile="${dist}/bcprov-jdk16-145.jar" file="${lib}/bcprov-jdk16-145.jar"/>
+    	<copy tofile="${dist}/bcmail-jdk16-145.jar" file="${lib}/bcmail-jdk16-145.jar"/>
+    	<copy tofile="${dist}/java-plugin-1.6.0.23.jar" file="${lib}/java-plugin-1.6.0.23.jar"/>
+    	<copy tofile="${dist}/pdfbox.jar" file="${lib}/pdfbox.jar"/>
+    	<copy tofile="${dist}/xmlsec.jar" file="${lib}/xmlsec.jar"/>
+    	
+    	<jar update="true" jarfile="${dist}/pdfSigner.jar">
+    	    <manifest>
+    	        <attribute name="Trusted-Library" value="true" />
+    	        <attribute name="Permissions" value="all-permissions" />
+    	        <attribute name="Codebase" value="*" />
+    	    	<attribute name="Application-Name" value="SCOD" />
+    	    </manifest>
+        </jar>    	
+    	<jar update="true" jarfile="${dist}/xmlsec.jar">
+    	    <manifest>
+    	        <attribute name="Trusted-Library" value="true" />
+    	        <attribute name="Permissions" value="all-permissions" />
+    	        <attribute name="Codebase" value="*" />
+    	    	<attribute name="Application-Name" value="SCOD" />    	    	
+    	    </manifest>
+        </jar>
+    	<jar update="true" jarfile="${dist}/commons-logging.jar">
+    	    <manifest>
+    	        <attribute name="Trusted-Library" value="true" />
+    	        <attribute name="Permissions" value="all-permissions" />
+    	        <attribute name="Codebase" value="*" />    	    	
+    	    	<attribute name="Application-Name" value="SCOD" />    	    	
+    	    </manifest>
+        </jar>
+    	<jar update="true" jarfile="${dist}/commons-io-2.4.jar">
+    	    <manifest>
+    	        <attribute name="Trusted-Library" value="true" />
+    	        <attribute name="Permissions" value="all-permissions" />
+    	        <attribute name="Codebase" value="*" />    	    	
+    	    	<attribute name="Application-Name" value="SCOD" />    	    	
+    	    </manifest>
+        </jar>    	
+    	<jar update="true" jarfile="${dist}/log4j.jar">
+    	    <manifest>
+    	        <attribute name="Trusted-Library" value="true" />
+    	        <attribute name="Permissions" value="all-permissions" />
+    	        <attribute name="Codebase" value="*" />
+    	    	<attribute name="Application-Name" value="SCOD" />    	    	
+    	    </manifest>
+        </jar>
+    	<jar update="true" jarfile="${dist}/log4j-core.jar">
+    	    <manifest>
+    	        <attribute name="Trusted-Library" value="true" />
+    	        <attribute name="Permissions" value="all-permissions" />
+    	        <attribute name="Codebase" value="*" />
+    	    	<attribute name="Application-Name" value="SCOD" />    	    	
+    	    </manifest>
+        </jar>
+
+    	<jar update="true" jarfile="${dist}/pdfbox.jar">
+    	    <manifest>
+    	        <attribute name="Trusted-Library" value="true" />
+    	        <attribute name="Permissions" value="all-permissions" />
+    	        <attribute name="Codebase" value="*" />    	    	
+    	    	<attribute name="Application-Name" value="SCOD" />    	    	
+    	    </manifest>
+        </jar>
+
+    	<jar update="true" jarfile="${dist}/bcmail-jdk16-145.jar">
+    	    <manifest>
+    	        <attribute name="Trusted-Library" value="true" />
+    	        <attribute name="Permissions" value="all-permissions" />
+    	        <attribute name="Codebase" value="*" />    	    	
+    	    	<attribute name="Application-Name" value="SCOD" />    	    	
+    	    </manifest>
+        </jar>
+
+    	<jar update="true" jarfile="${dist}/bcprov-jdk16-145.jar">
+    	    <manifest>
+    	        <attribute name="Trusted-Library" value="true" />
+    	        <attribute name="Permissions" value="all-permissions" />
+    	        <attribute name="Codebase" value="*" />    	    	
+    	    	<attribute name="Application-Name" value="SCOD" />    	    	
+    	    </manifest>
+        </jar>
+    	
+          <signjar keystore="${keystore}" storetype="${storetype}" storepass="${storepass}" keypass="${keypass}" alias="desarrollo cod's cera id" >
+		  <path>
+		    <fileset dir="dist" includes="**/*.jar" />
+		  </path>
+	    </signjar>
+    	
+    	<copyfile dest="lib/${jarName}" src="${dist}/${jarName}"/>
+    	
+    </target>
+	
+	<target name="build-deploy" depends="build">
+		<copyfile dest="../Proyecto/webCod/AppletJava" src="${dist}/${jarName}"/>
+    </target>
+	
+    <target name="PdfSignaturerApplet">
+        <java classname="sun.applet.AppletViewer" dir="." failonerror="true" fork="yes">
+            <arg line="XmlSignerApplet.html"/>
+            <classpath refid="PDFSigner.classpath"/>
+        </java>                                       
+    </target>
+</project>

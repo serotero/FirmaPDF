@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/cod/!svn/ver/641/trunk/Dependencias/Java/Cod-Signer/resources/certificates
+END
+devel.p12
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/cod/!svn/ver/526/trunk/Dependencias/Java/Cod-Signer/resources/certificates/devel.p12
+END
+qacode.jks
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/cod/!svn/ver/641/trunk/Dependencias/Java/Cod-Signer/resources/certificates/qacode.jks
+END
+qacodeSigner.p12
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/cod/!svn/ver/526/trunk/Dependencias/Java/Cod-Signer/resources/certificates/qacodeSigner.p12
+END
+cod.jks
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/cod/!svn/ver/526/trunk/Dependencias/Java/Cod-Signer/resources/certificates/cod.jks
+END
+keystore.jks
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/cod/!svn/ver/526/trunk/Dependencias/Java/Cod-Signer/resources/certificates/keystore.jks
+END

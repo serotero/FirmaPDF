@@ -1,0 +1,231 @@
+/*
+* Copyright (c) 2008, Harald Walker (bitwalker.nl) 
+* All rights reserved.
+* 
+* Redistribution and use in source and binary forms, with or
+* without modification, are permitted provided that the
+* following conditions are met:
+* 
+* * Redistributions of source code must retain the above
+* copyright notice, this list of conditions and the following
+* disclaimer.
+* 
+* * Redistributions in binary form must reproduce the above
+* copyright notice, this list of conditions and the following
+* disclaimer in the documentation and/or other materials
+* provided with the distribution.
+* 
+* * Neither the name of bitwalker nor the names of its
+* contributors may be used to endorse or promote products
+* derived from this software without specific prior written
+* permission.
+* 
+* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND
+* CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+* INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+* MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+* DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+* CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+* SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+* NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+* LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+* HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+* CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+* OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
+
+package bitwalker.useragentutils;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+/**
+ * Enum constants for most common operating systems.
+ * @author harald
+ */
+public enum OperatingSystem {
+
+	// the order is important since the agent string is being compared with the aliases
+	/**
+	 * Windows Mobile / Windows CE. Exact version unknown.
+	 */
+	WINDOWS_MOBILE(	Manufacturer.MICROSOFT,50, "Windows Mobile", new String[] { "Windows CE" }, true ), // before Win
+	WINDOWS_7(	Manufacturer.MICROSOFT,21, "Windows 7", new String[] { "Windows NT 6.1" }, false ), // before Win, yes, Windows 7 is called 6.1 LOL
+	WINDOWS_VISTA(	Manufacturer.MICROSOFT,20, "Windows Vista", new String[] { "Windows NT 6" }, false ), // before Win
+	WINDOWS_2000(	Manufacturer.MICROSOFT,15, "Windows 2000", new String[] { "Windows NT 5.0" }, false ), // before Win
+	WINDOWS_XP(		Manufacturer.MICROSOFT,10, "Windows XP", new String[] { "Windows NT 5" }, false ), // before Win
+
+	ANDROID1(		Manufacturer.GOOGLE, 1, "Android 1.x", new String[] { "Android 1" }, true ),
+	ANDROID2(		Manufacturer.GOOGLE, 2, "Android 2.x", new String[] { "Android 2" }, true ),
+	
+	/**
+	 * PalmOS, exact version unkown
+	 */
+	WEBOS(			Manufacturer.PALM,11, "WebOS", new String[] { "webOS" }, true ), 
+	PALM(			Manufacturer.PALM,10, "PalmOS", new String[] { "Palm" }, true ), 
+	
+	WINDOWS_98(		Manufacturer.MICROSOFT,5, "Windows 98", new String[] { "Windows 98" }, false ), // before Win 
+	WINDOWS(		Manufacturer.MICROSOFT,1, "Windows", new String[] { "Windows" }, false ), // catch the rest of older Windows systems (95, NT,...)
+
+	/**
+	 * iOS4, with the release of the iPhone 4, Apple renamed the OS to iOS.
+	 */	
+	iOS4_IPHONE(Manufacturer.APPLE, 41, "iOS 4 (iPhone)", new String[] { "iPhone OS 4" }, true ), // before MAC_OS_X_IPHONE for all older versions
+	MAC_OS_X_IPHONE(Manufacturer.APPLE, 40, "Mac OS X (iPhone)", new String[] { "iPhone" }, true ), // before Mac OS X
+	MAC_OS_X_IPOD(	Manufacturer.APPLE, 30, "Mac OS X (iPod)", new String[] { "iPod" }, true ), // before Mac OS X
+	MAC_OS_X_IPAD(	Manufacturer.APPLE, 50, "Mac OS X (iPad)", new String[] { "iPad" }, true ), // before Mac OS X
+
+	MAC_OS_X(		Manufacturer.APPLE, 10, "Mac OS X", new String[] { "Mac OS X" , "CFNetwork"}, false ), // before Mac	
+	/**
+	 * Older Mac OS systems before Mac OS X
+	 */
+	MAC_OS(			Manufacturer.APPLE, 1, "Mac OS", new String[] { "Mac" }, false ), // older Mac OS systems
+
+	/**
+	 * Linux based Maemo software platform by Nokia. Used in the N900 phone. http://maemo.nokia.com/
+	 */
+	MAEMO(			Manufacturer.NOKIA, 2, "Maemo", new String[] { "Maemo" }, true ),
+
+	/**
+	 * Various Linux based operating systems.
+	 */
+	LINUX(			Manufacturer.OTHER, 2, "Linux", new String[] { "Linux" , "CamelHttpStream" }, false ), // CamelHttpStream is being used by Evolution, an email client for Linux
+	/**
+	 * Symbian OS 9.x versions. Being used by Nokia (N71, N73, N81, N82, N91, N92, N95, ...)
+	 */
+	SYMBIAN9(		Manufacturer.SYMBIAN, 20, "Symbian OS 9.x", new String[] {"SymbianOS/9", "Series60/3"}, true ),
+	/**
+	 * Symbian OS 8.x versions. Being used by Nokia (6630, 6680, 6681, 6682, N70, N72, N90).
+	 */
+	SYMBIAN8(		Manufacturer.SYMBIAN, 15, "Symbian OS 8.x", new String[] { "SymbianOS/8", "Series60/2.6", "Series60/2.8"}, true ),
+	/**
+	 * Symbian OS 7.x versions. Being used by Nokia (3230, 6260, 6600, 6620, 6670, 7610), 
+	 * Panasonic (X700, X800), Samsung (SGH-D720, SGH-D730) and Lenovo (P930). 
+	 */
+	SYMBIAN7(		Manufacturer.SYMBIAN, 10, "Symbian OS 7.x", new String[] { "SymbianOS/7"}, true ),
+	/**
+	 * Symbian OS 6.x versions.
+	 */
+	SYMBIAN6(		Manufacturer.SYMBIAN, 5, "Symbian OS 6.x", new String[] { "SymbianOS/6"}, true ),
+	/**
+	 * Other Symbian OS versions
+	 */
+	SYMBIAN(		Manufacturer.SYMBIAN, 1, "Symbian OS", new String[] { "Symbian"}, true ),	
+	/**
+	 * Nokia's Series 40 operating system. Series 60 (S60) uses the Symbian OS.
+	 */
+	SERIES40 ( 		Manufacturer.NOKIA, 1, "Series 40", new String[] { "Nokia6300"}, true ),
+	/**
+	 * Proprietary operating system used for many Sony Ericsson phones. 
+	 */
+	SONY_ERICSSON ( Manufacturer.SONY_ERICSSON, 1, "Sony Ericsson", new String[] { "SonyEricsson"}, true ), // after symbian, some SE phones use symbian
+	SUN_OS(			Manufacturer.SUN, 1, "SunOS", new String[] { "SunOS" } , false),
+	PSP(			Manufacturer.SONY, 1, "Sony Playstation", new String[] { "Playstation" }, false ), 
+	/**
+	 * Nintendo Wii game console.
+	 */
+	WII(			Manufacturer.NINTENDO, 1, "Nintendo Wii", new String[] { "Wii" }, false ), 
+	/**
+	 * BlackBerryOS. The BlackBerryOS exists in different version. How relevant those versions are, is not clear.
+	 */
+	BLACKBERRY(		Manufacturer.BLACKBERRY, 1, "BlackBerryOS", new String[] { "BlackBerry" }, true ),	
+	
+	UNKNOWN(		Manufacturer.OTHER, 1, "Unknown", new String[0], false );
+	
+	private final short id;
+	private final String name;
+	private final String[] aliases;
+	private final boolean mobileDevice;
+	private final Manufacturer manufacturer;
+	
+	//private static Logger logger = Logger.getLogger("OperatingSystem");
+	private static Log logger = LogFactory.getLog(OperatingSystem.class.getName());
+	
+	private OperatingSystem(Manufacturer manufacturer, int versionId, String name, String[] aliases,
+			boolean mobileDevice) {
+		this.manufacturer = manufacturer;
+		// combine manufacturer and version id to one unique id. 
+		this.id =  (short) ( ( manufacturer.getId() << 8) + (byte) versionId);
+		this.name = name;
+		this.aliases = aliases;
+		this.mobileDevice = mobileDevice;
+	}
+
+	public short getId() {
+		return id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	
+	public boolean isMobileDevice() {
+		return mobileDevice;
+	}
+	
+		
+	/**
+	 * Returns the manufacturer of the operating system
+	 * @return the manufacturer
+	 */
+	public Manufacturer getManufacturer() {
+		return manufacturer;
+	}
+
+	/**
+	 * Checks if the given user-agent string matches to the operating system. 
+	 * Only checks for one specific operating system. 
+	 * @param agentString
+	 * @return boolean
+	 */
+	public boolean isInUserAgentString(String agentString)
+	{
+		for (String alias : aliases)
+		{
+			if (agentString.toLowerCase().indexOf(alias.toLowerCase()) != -1)
+				return true;
+		}	
+		return false;
+	}
+	
+	/**
+	 * Parses user agent string and returns the best match. 
+	 * Returns OperatingSystem.UNKNOWN if there is no match.
+	 * @param agentString
+	 * @return OperatingSystem
+	 */
+	public static OperatingSystem parseUserAgentString(String agentString)
+	{
+		for (OperatingSystem operatingSystem : OperatingSystem.values())
+		{
+			if (operatingSystem.isInUserAgentString(agentString))
+				return operatingSystem;
+				
+		}
+		
+		logger. debug("unknown system: " + agentString);
+		return OperatingSystem.UNKNOWN;		
+	}
+	
+	/**
+	 * Returns the enum constant of this type with the specified id.
+	 * Throws IllegalArgumentException if the value does not exist.
+	 * @param id
+	 * @return 
+	 */
+	public static OperatingSystem valueOf(short id)
+	{
+		for (OperatingSystem operatingSystem : OperatingSystem.values())
+		{
+			if (operatingSystem.getId() == id)
+				return operatingSystem;
+		}
+		
+		// same behavior as standard valueOf(string) method
+		throw new IllegalArgumentException(
+	            "No enum const for id " + id);
+	}
+	
+}

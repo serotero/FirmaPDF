@@ -1,0 +1,200 @@
+/*
+* Copyright (c) 2008, Harald Walker (bitwalker.nl) 
+* All rights reserved.
+* 
+* Redistribution and use in source and binary forms, with or
+* without modification, are permitted provided that the
+* following conditions are met:
+* 
+* * Redistributions of source code must retain the above
+* copyright notice, this list of conditions and the following
+* disclaimer.
+* 
+* * Redistributions in binary form must reproduce the above
+* copyright notice, this list of conditions and the following
+* disclaimer in the documentation and/or other materials
+* provided with the distribution.
+* 
+* * Neither the name of bitwalker nor the names of its
+* contributors may be used to endorse or promote products
+* derived from this software without specific prior written
+* permission.
+* 
+* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND
+* CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES,
+* INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+* MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+* DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+* CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+* SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT
+* NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+* LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+* HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+* CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+* OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+* SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
+
+package bitwalker.useragentutils;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+/**
+ * Enum constants for most common browsers, including e-mail clients and bots.
+ * @author harald
+ * 
+ */
+
+public enum Browser {
+
+	OPERA_MINI(		Manufacturer.OPERA,20, "Opera Mini", new String[] { "Opera Mini"}, BrowserType.MOBILE_BROWSER), // Opera for mobile devices
+	OPERA9(			Manufacturer.OPERA, 5, "Opera 9", new String[] { "Opera/9" }, BrowserType.WEB_BROWSER),  // Opera fist since it often pretends to be someone else
+	OPERA(			Manufacturer.OPERA, 1, "Opera", new String[] { "Opera" }, BrowserType.WEB_BROWSER),   // other Opera version
+	KONQUEROR(		Manufacturer.OTHER, 1, "Konqueror", new String[] { "Konqueror"}, BrowserType.WEB_BROWSER ),  // before MSIE
+	/**
+	 * Microsoft Outlook 2007 identifies itself as MSIE7 but uses the html rendering engine of Word 2007.
+	 * Example user agent: Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0; SLCC1; .NET CLR 2.0.50727; .NET CLR 3.0.04506; .NET CLR 1.1.4322; MSOffice 12)
+	 */
+	OUTLOOK2007(	Manufacturer.MICROSOFT, 107, "Outlook 2007", new String[] {"MSOffice 12"}, BrowserType.EMAIL_CLIENT), // before IE7
+	OUTLOOK2010(	Manufacturer.MICROSOFT, 108, "Outlook 2010", new String[] {"MSOffice 14"}, BrowserType.EMAIL_CLIENT), // before IE7
+
+	/**
+	 * Since version 7 Outlook Express is identifying itself. By detecting Outlook Express we can not 
+	 * identify the Internet Explorer version which is probably used for the rendering.
+	 * Obviously this product is now called Windows Live Mail Desktop or just Windows Live Mail.
+	 */
+	OUTLOOK_EXPRESS7(	Manufacturer.MICROSOFT, 110, "Windows Live Mail", new String[] {"Outlook-Express/7.0"}, BrowserType.EMAIL_CLIENT), // before IE7, previously known as Outlook Express. First released in 2006, offered with different name later
+	/**
+	 * Since 2007 the mobile edition of Internet Explorer identifies itself as IEMobile in the user-agent. 
+	 * If previous versions have to be detected, use the operating system information as well.
+	 */
+	IEMOBILE7(		Manufacturer.MICROSOFT, 121, "IE Mobile 7", new String[] { "IEMobile 7" }, BrowserType.MOBILE_BROWSER), // before MSIE strings
+	IEMOBILE6(		Manufacturer.MICROSOFT, 120, "IE Mobile 6", new String[] { "IEMobile 6" }, BrowserType.MOBILE_BROWSER), // before MSIE
+	IE8(			Manufacturer.MICROSOFT, 80, "Internet Explorer 8", new String[] { "MSIE 8" }, BrowserType.WEB_BROWSER ),   // before MSIE
+	IE7(			Manufacturer.MICROSOFT, 70, "Internet Explorer 7", new String[] { "MSIE 7" }, BrowserType.WEB_BROWSER ),   // before MSIE
+	IE6(			Manufacturer.MICROSOFT, 60, "Internet Explorer 6", new String[] { "MSIE 6" }, BrowserType.WEB_BROWSER ),   // before MSIE
+	IE5_5(			Manufacturer.MICROSOFT, 55, "Internet Explorer 5.5", new String[] { "MSIE 5.5" }, BrowserType.WEB_BROWSER), // before MSIE
+	IE5(			Manufacturer.MICROSOFT, 50, "Internet Explorer 5", new String[] { "MSIE 5" }, BrowserType.WEB_BROWSER ), // before MSIE
+	IE( 			Manufacturer.MICROSOFT, 1, "Internet Explorer", new String[] { "MSIE", "IE" }, BrowserType.WEB_BROWSER ), // before Mozilla
+	CHROME( 		Manufacturer.GOOGLE, 1, "Chrome", new String[] { "Chrome" }, BrowserType.WEB_BROWSER ), // before Mozilla
+	SAFARI5(		Manufacturer.APPLE, 3, "Safari 5", new String[] { "5.0 Safari" }, BrowserType.WEB_BROWSER ),  // before AppleWebKit
+	MOBILE_SAFARI(	Manufacturer.APPLE, 2, "Mobile Safari", new String[] { "Mobile Safari","Mobile/5A347 Safari","Mobile/3A101a Safari", "Mobile/7B367 Safari" }, BrowserType.MOBILE_BROWSER ),  // before Safari
+	SAFARI(			Manufacturer.APPLE, 1, "Safari", new String[] { "Safari" }, BrowserType.WEB_BROWSER ),  // before AppleWebKit
+	OMNIWEB(		Manufacturer.OTHER, 2, "Omniweb", new String[] { "OmniWeb" }, BrowserType.WEB_BROWSER), // 
+	APPLE_MAIL(		Manufacturer.APPLE, 50, "Apple Mail", new String[] { "AppleWebKit" }, BrowserType.EMAIL_CLIENT),  
+	LOTUS_NOTES( 	Manufacturer.OTHER, 3, "Lotus Notes", new String[] { "Lotus-Notes" }, BrowserType.EMAIL_CLIENT),  // before Mozilla
+	THUNDERBIRD2(  	Manufacturer.MOZILLA, 120, "Thunderbird 2", new String[] { "Thunderbird/2" }, BrowserType.EMAIL_CLIENT ),  // using Gecko Engine
+	THUNDERBIRD( 	Manufacturer.MOZILLA, 110, "Thunderbird", new String[] { "Thunderbird" }, BrowserType.EMAIL_CLIENT ),  // using Gecko Engine
+	NETSCAPE9(		Manufacturer.NETSCAPE, 90, "Netscape Navigator 9", new String[] { "Navigator/9" }, BrowserType.WEB_BROWSER ),  //before firefox
+	FLOCK(			Manufacturer.OTHER, 4, "Flock", new String[]{"Flock"}, BrowserType.WEB_BROWSER),
+	FIREFOX3MOBILE(	Manufacturer.MOZILLA, 31, "Firefox 3 Mobile", new String[] { "Firefox/3.5 Maemo" }, BrowserType.MOBILE_BROWSER ),  // using Gecko Engine
+	FIREFOX3(		Manufacturer.MOZILLA, 30, "Firefox 3", new String[] { "Firefox/3" }, BrowserType.WEB_BROWSER ),  // using Gecko Engine
+	FIREFOX2(		Manufacturer.MOZILLA, 20, "Firefox 2", new String[] { "Firefox/2" }, BrowserType.WEB_BROWSER ),  // using Gecko Engine
+	FIREFOX1_5(		Manufacturer.MOZILLA, 15, "Firefox 1.5", new String[] { "Firefox/1.5" }, BrowserType.WEB_BROWSER ),  // using Gecko Engine
+	FIREFOX(		Manufacturer.MOZILLA, 10, "Firefox", new String[] { "Firefox" }, BrowserType.WEB_BROWSER),  // using Gecko Engine
+	CAMINO(			Manufacturer.OTHER, 5, "Camino", new String[] { "Camino" }, BrowserType.WEB_BROWSER ),  // using Gecko Engine
+	NETSCAPE8(		Manufacturer.NETSCAPE, 80, "Netscape Navigator 8", new String[] { "Netscape/8" }, BrowserType.WEB_BROWSER ),  // using Gecko Engine
+	NETSCAPE(		Manufacturer.NETSCAPE, 1, "Netscape Navigator", new String[] { "Netscape" }, BrowserType.WEB_BROWSER ),  // using Gecko Engine
+	SEAMONKEY(		Manufacturer.OTHER, 15, "SeaMonkey", new String[]{"SeaMonkey"}, BrowserType.WEB_BROWSER), // using Gecko Engine
+	MOZILLA(		Manufacturer.MOZILLA, 1, "Mozilla", new String[] { "Mozilla", "Moozilla" }, BrowserType.WEB_BROWSER), // rest of the mozilla browsers
+	CFNETWORK(		Manufacturer.OTHER, 6, "CFNetwork", new String[] { "CFNetwork" }, BrowserType.UNKNOWN ), // Mac OS X cocoa library
+	EUDORA(			Manufacturer.OTHER, 7, "Eudora", new String[] { "Eudora", "EUDORA" }, BrowserType.EMAIL_CLIENT ),  // email client by Qualcomm
+	POCOMAIL(		Manufacturer.OTHER, 8, "PocoMail", new String[] { "PocoMail" }, BrowserType.EMAIL_CLIENT ),
+	THEBAT(			Manufacturer.OTHER, 9, "The Bat!", new String[]{"The Bat"}, BrowserType.EMAIL_CLIENT), // Email Client
+	NETFRONT(		Manufacturer.OTHER, 10, "NetFront", new String[]{"NetFront"}, BrowserType.MOBILE_BROWSER), // mobile device browser
+	EVOLUTION(		Manufacturer.OTHER, 11, "Evolution", new String[]{"CamelHttpStream"}, BrowserType.EMAIL_CLIENT), // http://www.go-evolution.org/Camel.Stream
+	BOT(			Manufacturer.OTHER, 12,"Robot/Spider", new String[]{"bot", "spider", "crawler", "Feedfetcher", "Slurp", "Twiceler", "Nutch", "BecomeBot"}, BrowserType.ROBOT),
+    LYNX(			Manufacturer.OTHER, 13, "Lynx", new String[]{"Lynx"}, BrowserType.TEXT_BROWSER),
+	UNKNOWN(		Manufacturer.OTHER, 14, "Unknown", new String[0], BrowserType.UNKNOWN ); 
+	
+	
+	private final short id;
+	private final String name;
+	private final String[] aliases;
+	private final BrowserType browserType;
+	private final Manufacturer manufacturer;
+	
+	private static Log logger = LogFactory.getLog(Browser.class.getName());
+	
+	private Browser(Manufacturer manufacturer, int versionId, String name, String[] aliases, BrowserType browserType) {
+		this.id =  (short) ( ( manufacturer.getId() << 8) + (byte) versionId);
+		this.name = name;
+		this.aliases = aliases;
+		this.browserType = browserType;
+		this.manufacturer = manufacturer;
+	}
+	
+	public short getId() {
+		return id;
+	}
+
+	public String getName() {
+		return name;
+	}
+	
+	/**
+	 * @return the browserType
+	 */
+	public BrowserType getBrowserType() {
+		return browserType;
+	}
+
+	/**
+	 * @return the manufacturer
+	 */
+	public Manufacturer getManufacturer() {
+		return manufacturer;
+	}
+
+	/*
+	 * Checks if the given user-agent string matches to the browser. 
+	 * Only checks for one specific browser. 
+	 */
+	public boolean isInUserAgentString(String agentString)
+	{
+		for (String alias : aliases)
+		{
+			if (agentString.toLowerCase().indexOf(alias.toLowerCase()) != -1)
+				return true;
+		}
+		return false;
+	}
+	
+	/*
+	 * Iterates over all Browsers to compare the browser signature with 
+	 * the user agent string. If no match can be found Browser.UNKNOWN will
+	 * be returned.
+	 */
+	public static Browser parseUserAgentString(String agentString)
+	{
+		for (Browser browserInList : Browser.values())
+		{
+			if (browserInList.isInUserAgentString(agentString))
+					return browserInList;
+		}
+		
+		logger.debug("unknown browser: " + agentString);
+		return Browser.UNKNOWN;		
+	}
+	
+	/**
+	 * Returns the enum constant of this type with the specified id.
+	 * Throws IllegalArgumentException if the value does not exist.
+	 * @param id
+	 * @return 
+	 */
+	public static Browser valueOf(short id)
+	{
+		for (Browser browser : Browser.values())
+		{
+			if (browser.getId() == id)
+				return browser;
+		}
+		
+		// same behavior as standard valueOf(string) method
+		throw new IllegalArgumentException(
+	            "No enum const for id " + id);
+	}
+	
+}

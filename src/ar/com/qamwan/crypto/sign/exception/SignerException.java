@@ -1,0 +1,31 @@
+package ar.com.qamwan.crypto.sign.exception;
+
+public class SignerException extends Exception{
+
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3141436930494152812L;
+
+	public SignerException()
+    {
+        super();
+    }
+
+    public SignerException(String message)
+    {
+        super(message);
+    }
+
+    public SignerException(Throwable exception)
+    {
+        super(exception);
+    }
+    
+    public SignerException(String message, Throwable exception)
+    {
+        super(message, exception);
+    }
+
+}
